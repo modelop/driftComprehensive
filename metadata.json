@@ -1,6 +1,6 @@
 {
     "tags": [],
-    "name": "Data Drift Monitor: Comprehensive Analysis",
+    "name": "Data Drift Monitor: Comprehensive Analysis Extended",
     "description": "Model to run KS, ES, JS, KL, and summary on on input data",
     "modelCategory": "MODEL_MONITORING_MODEL",
     "defaultAssociationRole": "DATA_DRIFT_MODEL",
