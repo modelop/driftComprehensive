@@ -148,8 +148,11 @@ def metrics(df_baseline: pandas.DataFrame, df_sample: pandas.DataFrame) -> dict:
         js_drift_metrics,
         kl_drift_metrics,
         ks_drift_metrics,
-        summary_drift_metrics,
-        value_counts
+        summary_drift_metrics
     )
+    
+    # merge list of outputs for Value Counts
+    for i in value_counts:
+        result = utils.merge(result, i)
 
     yield result
