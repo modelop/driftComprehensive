@@ -72,18 +72,29 @@ def count_categorical_values(df_baseline: pandas.DataFrame, df_sample: pandas.Da
         else:
             data2.append(0)
 
-    output = {}
-    output["Categoricals_Unique_Value_Counts"] = {
-        "title": "Count for each unique categorical",
-        "x_axis_label": "Count",
-        "y_axis_label": "Categorical",
-        "rotated": True,
-        "data": {
-            "data1": data1,
-            "data2": data2
-        },
-        "categories": all_count_fields
-    }
+    # output = {}
+    # output["Categoricals_Unique_Value_Counts"] = {
+    #     "title": "Count for each unique categorical",
+    #     "x_axis_label": "Count",
+    #     "y_axis_label": "Categorical",
+    #     "rotated": True,
+    #     "data": {
+    #         "data1": data1,
+    #         "data2": data2
+    #     },
+    #     "categories": all_count_fields
+    # }
+
+    output = []
+    for i, value_name in enumerate(all_count_fields):
+        output.append(
+            {
+                value_name: [{
+                    'data1': data1[i],
+                    'data2': data2[i]
+                }]
+            }
+        )
 
     return output
 
