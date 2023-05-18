@@ -30,7 +30,7 @@ def init(job_json: dict) -> None:
     numerical_columns = monitoring_parameters["numerical_columns"]
     categorical_columns = monitoring_parameters["categorical_columns"]
 
-def count_categorical_values(df_baseline: pandas.DataFrame, df_sample: pandas.DataFrame) -> dict:
+def count_categorical_values(df_baseline, df_sample) -> dict:
     """A function to compute unique value counts for categorical fields.
 
     Args:
@@ -71,30 +71,20 @@ def count_categorical_values(df_baseline: pandas.DataFrame, df_sample: pandas.Da
             data2.append(sample_counts[i])
         else:
             data2.append(0)
-
-    # output = {}
-    # output["Categoricals_Unique_Value_Counts"] = {
-    #     "title": "Count for each unique categorical",
-    #     "x_axis_label": "Count",
-    #     "y_axis_label": "Categorical",
-    #     "rotated": True,
-    #     "data": {
-    #         "data1": data1,
-    #         "data2": data2
-    #     },
-    #     "categories": all_count_fields
-    # }
-
+            
     output = []
-    for i, value_name in enumerate(all_count_fields):
-        output.append(
-            {
-                value_name: [{
-                    'data1': data1[i],
-                    'data2': data2[i]
-                }]
-            }
-        )
+    for col in categorical_columns:
+        counts_for_column = []
+        for i, value_name in enumerate(all_count_fields):
+            if col in value_name:
+                counts_for_column.append(
+                    {
+                        'Values': '_'.join(value_name.split('_')[1:]),
+                        'Baseline Data': data1[i],
+                        'Sample Data': data2[i]
+                    }
+                )
+        output.append({"Feature: " + col: counts_for_column})
 
     return output
 
