@@ -40,7 +40,8 @@ def count_categorical_values(df_baseline, df_sample) -> dict:
     Returns:
         dict: Value counts in graphable form (horizontal bar chart)
     """
-    
+    baseline_shape = df_baseline.shape[0]
+    sample_shape = df_sample.shape[0]
     baseline_counts = {}
     sample_counts = {}
 
@@ -48,12 +49,12 @@ def count_categorical_values(df_baseline, df_sample) -> dict:
     for col in categorical_columns:
         values = df_baseline[col].value_counts()
         for i in values.iteritems():
-            count_field = col + '_' + i[0] + '_' + 'count'
-            baseline_counts[count_field] = i[1]
+            count_field = col + '_' + i[0]
+            baseline_counts[count_field+'_count'] = i[1]
         values = df_sample[col].value_counts()
         for i in values.iteritems():
-            count_field = col + '_' + i[0] + '_' + 'count'
-            sample_counts[count_field] = i[1]
+            count_field = col + '_' + i[0]
+            sample_counts[count_field+'_count'] = i[1]
     
     # get union of baseline_counts and sample_counts
     all_count_fields = list(set(baseline_counts.keys()).union(set(sample_counts.keys())))
@@ -77,13 +78,12 @@ def count_categorical_values(df_baseline, df_sample) -> dict:
         counts_for_column = []
         for i, value_name in enumerate(all_count_fields):
             if col in value_name:
-                counts_for_column.append(
-                    {
-                        'Values': '_'.join(value_name.split('_')[1:]),
-                        'Baseline Data': data1[i],
-                        'Sample Data': data2[i]
-                    }
-                )
+                dicto = {'Values': value_name.split('_')[1]}
+                dicto['Baseline Data - Count'] = data1[i]
+                dicto['Sample Data - Count'] = data2[i]
+                dicto['Baseline Data - %'] = round(data1[i] / baseline_shape, 3)
+                dicto['Sample Data - %'] = round(data2[i] / sample_shape, 3)
+                counts_for_column.append(dicto)
         output.append({"Feature: " + col: counts_for_column})
 
     return output
