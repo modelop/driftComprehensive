@@ -1,5 +1,5 @@
-# Data Drift Monitor: Comprehensive Analysis
-This ModelOp Center monitor runs and compares **Kolmogorov-Smirnov**, **Epps-Singleton**, **Jensen-Shannon**, **Kullback-Leibler**, and **Pandas summary** on **input** data.
+# Data Drift Monitor: Comprehensive Analysis Extended
+This ModelOp Center monitor runs and compares **Kolmogorov-Smirnov**, **Epps-Singleton**, **Jensen-Shannon**, **Kullback-Leibler**, and **Pandas summary** on **input** data. This "extended" version also provides detailed metrics for each unique value for each Categorical feature.
 
 ## Input Assets
 
